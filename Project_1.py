@@ -42,7 +42,27 @@ class ImageProc:
             b_res = contrast_brightness(self.img, contrast, brightness):
             res_img = Image.merge('RGB',(r_res,g_res,b_res))
         return res_img
+        
+        
+    def resize_images(self, img1, img2):
+        pass
+    
+    def blend_bw_images(self, img1, img2, alpha):
+        pass
+        
+    def blend_color_images(self, img1, img2, alpha):
+        pass
+        
 
+    def blend_images(self, img2, alpha):
+        if self.img.size != img2.size:
+            self.img, img2 = self.resize_images(self.img, img2)
+        if self.img.mode == 'L' and img2.mode == 'L':
+            return self.blend_bw_images(self.img, img2, alpha)
+        else:
+            img1 = self.img.convert("RGBA")
+            img2 = img2.convert("RGBA")
+            return self.blend_color_images(img1, img2, alpha)
 
 
 ImageProcess("cow.jpg").show()
