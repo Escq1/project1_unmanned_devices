@@ -45,7 +45,11 @@ class ImageProc:
         
         
     def resize_images(self, img1, img2):
-        pass
+        min_width = min(img1.size[0], img2.size[0])
+        min_height = min(img1.size[1], img2.size[1])
+        img1_resized = img1.resize((min_width, min_height))
+        img2_resized = img2.resize((min_width, min_height))
+        return img1_resized, img2_resized
     
     def blend_bw_images(self, img1, img2, alpha):
         pass
