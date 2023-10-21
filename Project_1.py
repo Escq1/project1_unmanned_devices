@@ -45,14 +45,32 @@ class ImageProc:
         
         
     def resize_images(self, img1, img2):
+    
         min_width = min(img1.size[0], img2.size[0])
         min_height = min(img1.size[1], img2.size[1])
+        
         img1_resized = img1.resize((min_width, min_height))
         img2_resized = img2.resize((min_width, min_height))
         return img1_resized, img2_resized
     
     def blend_bw_images(self, img1, img2, alpha):
-        pass
+    
+        blended_img = Image.new("L", img1.size)
+
+        img1_data = img1.load()
+        img2_data = img2.load()
+        blended_data = blended_img.load()
+
+        for y in range(img1.size[1]):
+            for x in range(img1.size[0]):
+                p1 = img1_data[x, y]
+                p2 = img2_data[x, y]
+
+                p_out = round(p1 * (1 - alpha) + p2 * alpha)
+
+                blended_data[x, y] = p_out
+
+        return blended_img
         
     def blend_color_images(self, img1, img2, alpha):
         pass
