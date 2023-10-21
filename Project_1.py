@@ -73,7 +73,25 @@ class ImageProc:
         return blended_img
         
     def blend_color_images(self, img1, img2, alpha):
-        pass
+        blended_img = Image.new("RGBA", img1.size)
+
+        img1_data = img1.load()
+        img2_data = img2.load()
+        blended_data = blended_img.load()
+
+        for y in range(img1.size[1]):
+            for x in range(img1.size[0]):
+                r1, g1, b1, a1 = img1_data[x, y]
+                r2, g2, b2, a2 = img2_data[x, y]
+
+                r_out = round(r1 * (1 - alpha) + r2 * alpha)
+                g_out = round(g1 * (1 - alpha) + g2 * alpha)
+                b_out = round(b1 * (1 - alpha) + b2 * alpha)
+                a_out = round(a1 * (1 - alpha) + a2 * alpha)
+
+                blended_data[x, y] = (r_out, g_out, b_out, a_out)
+
+        return blended_img
         
 
     def blend_images(self, img2, alpha):
