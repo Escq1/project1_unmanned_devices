@@ -102,3 +102,36 @@ Returns:
 - blurred_img (Image object): The blurred image.
 """
 ```
+
+
+- `blur_color_image(self, size)`: This helper function is used by the `blur_image` function. It takes an integer `size` as argument. It applies a moving average filter of the given size to each color channel of the image and returns the blurred image.
+
+```python
+"""
+blur_color_image(self, size)
+
+Applies a moving average filter of the given size to each color channel of the image associated with the ImageProc instance.
+
+Parameters:
+- size (int): The size of the moving average window. Should be an odd number.
+
+Returns:
+- blurred_img (Image object): The blurred image.
+"""
+```
+
+- `blur_image(self, size)`: This method takes an integer `size` as argument. It checks if the image is black and white or color and calls the respective helper function to blur the image. It returns the blurred image.
+
+```python
+"""
+blur_image(self, size)
+
+Applies a moving average filter of the given size to the image associated with the ImageProc instance.
+
+Parameters:
+- size (int): The size of the moving average window. Should be an odd number.
+
+Returns:
+- blurred_img (Image object): The blurred image.
+"""
+```
