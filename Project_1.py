@@ -103,6 +103,12 @@ class ImageProc:
             img1 = self.img.convert("RGBA")
             img2 = img2.convert("RGBA")
             return self.blend_color_images(img1, img2, alpha)
+            
+     def blur_image(self, size):
+        if self.img.mode == 'L':
+            return self.blur_bw_image(size)
+        else:
+            return self.blur_color_image(size)
 
 
 ImageProcess("cow.jpg").show()
