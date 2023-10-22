@@ -1,5 +1,7 @@
 # project1_unmanned_devices
 
+This Project contains a Python class ImageProc that provides various image processing functionalities. The class is designed to work with images in both black and white and color formats.
+
 - `__init__(self, filename)`: This is the initializer method for the `ImageProc` class. It takes a string argument `filename` which is the path to the image file. This method loads the image, stores it in the `img` instance variable, and also stores the mode and size of the image, and the separated color channels if the image is in color mode. 
 
 ```python
