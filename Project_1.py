@@ -105,15 +105,12 @@ class ImageProc:
             return self.blend_color_images(img1, img2, alpha)
             
             
-     def blur_bw_image(self, size):
-        # Get image data
+    def blur_bw_image(self, size):
         img_data = self.img.load()
 
-        # Create a new image to store the blurred image
         blurred_img = Image.new("L", self.img.size)
         blurred_data = blurred_img.load()
 
-        # Calculate the moving average for each pixel
         for i in range(size // 2, self.img.width - size // 2):
             for j in range(size // 2, self.img.height - size // 2):
                 total = 0
@@ -125,8 +122,33 @@ class ImageProc:
                 blurred_data[i, j] = total // count
 
         return blurred_img
+        
+    
+    def blur_color_image(self, size):
+        img_data = self.img.load()
+
+        blurred_img = Image.new("RGB", self.img.size)
+        blurred_data = blurred_img.load()
+
+        for i in range(size // 2, self.img.width - size // 2):
+            for j in range(size // 2, self.img.height - size // 2):
+                r_total = 0
+                g_total = 0
+                b_total = 0
+                count = 0
+                for x in range(i - size // 2, i + size // 2 + 1):
+                    for y in range(j - size // 2, j + size // 2 + 1):
+                        r, g, b = img_data[x, y]
+                        r_total += r
+                        g_total += g
+                        b_total += b
+                        count += 1
+                blurred_data[i, j] = (r_total // count, g_total // count, b_total // count)
+
+        return blurred_img
+    
             
-     def blur_image(self, size):
+    def blur_image(self, size):
         if self.img.mode == 'L':
             return self.blur_bw_image(size)
         else:
