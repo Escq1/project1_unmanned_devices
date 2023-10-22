@@ -34,3 +34,37 @@ Returns:
 - img1_resized, img2_resized (Image object, Image object): The resized images.
 """
 ```
+
+- `blend_bw_images(self, img1, img2, alpha)`: This helper function is used by the `blend_images` function. It takes two black and white `Image` objects and a float `alpha` as arguments. It blends the two images together based on the `alpha` value and returns the blended image.
+
+```python
+"""
+blend_bw_images(self, img1, img2, alpha)
+
+Blends two black and white images together based on the alpha value.
+
+Parameters:
+- img1, img2 (Image object, Image object): The two black and white images to blend.
+- alpha (float): The blending factor. Should be between 0 (only img1 is visible) and 1 (only img2 is visible).
+
+Returns:
+- blended_img (Image object): The blended image.
+"""
+```
+
+- `blend_color_images(self, img1, img2, alpha)`: This helper function is used by the `blend_images` function. It takes two color `Image` objects and a float `alpha` as arguments. It blends the two images together based on the `alpha` value and returns the blended image.
+
+```python
+"""
+blend_color_images(self, img1, img2, alpha)
+
+Blends two color images together based on the alpha value.
+
+Parameters:
+- img1, img2 (Image object, Image object): The two color images to blend.
+- alpha (float): The blending factor. Should be between 0 (only img1 is visible) and 1 (only img2 is visible).
+
+Returns:
+- blended_img (Image object): The blended image.
+"""
+```
