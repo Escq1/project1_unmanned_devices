@@ -155,7 +155,7 @@ class ImageProc:
             return self.blur_color_image(size)
 
 
-#testing image noise reduction 
+
 img_proc = ImageProc("cow.jpg")
 blurred_img = img_proc.blur_image(5)
 blurred_img.show()
