@@ -18,3 +18,19 @@ Attributes:
 - r, g, b (Image object, Image object, Image object): The separated color channels of the image, if the image is in color mode.
 """
 ```
+
+- `resize_images(self, img1, img2)`: This helper function is used by the `blend_images` function. It takes two `Image` objects as arguments and resizes them to the minimum width and height among the two images. It returns a tuple of the resized images.
+
+```python
+"""
+resize_images(self, img1, img2)
+
+Resizes two images to the minimum width and height among the two images.
+
+Parameters:
+- img1, img2 (Image object, Image object): The two images to resize.
+
+Returns:
+- img1_resized, img2_resized (Image object, Image object): The resized images.
+"""
+```
