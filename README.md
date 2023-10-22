@@ -68,3 +68,37 @@ Returns:
 - blended_img (Image object): The blended image.
 """
 ```
+
+
+- `blend_images(self, img2, alpha)`: This method takes an `Image` object and a float `alpha` as arguments. It checks if the image is black and white or color and calls the respective helper function to blend the images. It returns the blended image.
+
+```python
+"""
+blend_images(self, img2, alpha)
+
+Blends the image associated with the ImageProc instance with another image.
+
+Parameters:
+- img2 (Image object): The image to blend with.
+- alpha (float): The blending factor. Should be between 0 (only the image associated with the ImageProc instance is visible) and 1 (only img2 is visible).
+
+Returns:
+- blended_img (Image object): The blended image.
+"""
+```
+
+- `blur_bw_image(self, size)`: This helper function is used by the `blur_image` function. It takes an integer `size` as argument. It applies a moving average filter of the given size to the black and white image and returns the blurred image.
+
+```python
+"""
+blur_bw_image(self, size)
+
+Applies a moving average filter of the given size to the black and white image associated with the ImageProc instance.
+
+Parameters:
+- size (int): The size of the moving average window. Should be an odd number.
+
+Returns:
+- blurred_img (Image object): The blurred image.
+"""
+```
