@@ -137,3 +137,69 @@ Returns:
 - blurred_img (Image object): The blurred image.
 """
 ```
+
+
+
+- `invert_operator(self)`: This function takes an image as input. The function works by iterating through each pixel in the input image and calculating the inverse of the RGB color values. A new image with inverted colors is returned.
+
+```python
+"""
+invert_operator(self)
+
+A new image is created the same size as the input image, but with the color mode "RGB". All pixels of the input image are iterated. For each pixel we get the original color. The inverted color is calculated by subtracting each color channel from 255. This replaces dark colors with light ones.
+
+Parameters:
+- This function only takes an image as input.
+
+Returns:
+- invert_img (Image object): Inverted image.
+"""
+```
+
+- `invert_bw_operator(self)`: This method inverts the colors of an image by changing each pixel of the image to its negative, where the colors are replaced with their opposite values. A new image with inverted colors is returned.
+
+```python
+"""
+invert_bw_operator(self)
+
+This method creates a negative black and white image by inverting the brightness of all its pixels.
+
+Parameters:
+- This function only takes an image as input.
+
+Returns:
+- invert_img (Image object): Inverted image.
+"""
+```
+
+- `invert_image(self)`: This function takes an image as input. It checks if the image is black and white or color and calls the respective helper function. A new image with inverted colors is returned.
+
+```python
+"""
+invert_image(self)
+
+This method inverts the colors of an image, changing each pixel of the image to its negative.
+
+Parameters:
+- This function only takes an image as input.
+
+Returns:
+- invert_img (Image object): Inverted image.
+"""
+```
+
+- `drow_frame(self, x1, x2, y1, y2)`: This method takes four values, which are the coordinates of points, and selects the desired area by drawing lines. The original image with the constructed frame is returned.
+
+```python
+"""
+drow_frame(self, x1, x2, y1, y2)
+
+Selects a frame using four points (builds a frame).
+
+Parameters:
+- x1 (int), x2 (int), y1 (int), y2 (int): Four values that are the coordinates of the four points along which the frame is constructed.
+
+Returns:
+- drow_frame (Image object): Image with frame.
+"""
+```
