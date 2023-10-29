@@ -2,7 +2,7 @@ import math
 import random as rnd
 import numpy as np
 from numpy import random
-from PIL import Image
+from PIL import Image, ImageDraw
 
 
 def contrast_brightness(img, contrast, brightness):
@@ -228,7 +228,44 @@ class ImageProc:
             return self.blur_color_image(size)
 
 
+    def invert_operator(self):
+        w, h = self.img.size
+        img_out = Image.new('RGB', (w, h))
+        for x in range(w):
+            for y in range(h):
+                original_pxl = self.img.getpixel((x, y))
+                result_pxl = (255 - original_pxl[0], 255 - original_pxl[1], 255 - original_pxl[2])
+                img_out.putpixel((x, y), result_pxl)
+        return (img_out)
+
+    def invert_bw_operator(self):
+        w, h = self.img.size
+        img_out = Image.new('L', (w, h))
+        for x in range(w):
+            for y in range(h):
+                original_pxl = self.img.getpixel((x, y))
+                result_pxl = 255 - original_pxl
+                img_out.putpixel((x, y), result_pxl)
+        return (img_out)
+
+    def invert_image(self):
+        if self.img.mode == 'L':
+            return self.invert_bw_operator()
+        else:
+            return self.invert_operator()
+
+    def drow_frame(self, x1, x2, y1, y2):
+        drow = ImageDraw.Draw(self.img)
+        line_color = (255, 0, 0)
+        line_width = 5
+        drow.line([(x1, y1), (x1, y2), (x2, y2), (x2, y1), (x1, y1)], fill=line_color, width=line_width)
+        self.img.show()
 
 img_proc = ImageProc("cow.jpg")
 blurred_img = img_proc.blur_image(5)
+invert_img = img_proc.invert_image()
+drow_frame = img_proc.drow_frame(300,1100,100,900)
 blurred_img.show()
+invert_img.show()
+
+
