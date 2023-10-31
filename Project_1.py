@@ -84,7 +84,19 @@ def derivative_filter(img_in):
             pxl_v = img_v.getpixel((x, y))
             pxl = math.sqrt(pxl_h*pxl_h+pxl_v*pxl_v)
             img_out.putpixel((x, y), int(pxl))
-    #print(img_out.size)
+    return img_out
+
+def noise_gaussian(img_in):
+    w, h = img_in.size
+    img_out = img_in.copy()
+    p = int(0.2 * w * h)
+    for i in range(p):
+        x = rnd.randint(0, w - 1)
+        y = rnd.randint(0, h - 1)
+        noise_value = random.normal(0, 30)
+        original_pxl = img_in.getpixel((x, y))
+        result_pxl = original_pxl + noise_value
+        img_out.putpixel((x, y), int(result_pxl))
     return img_out
 
 class ImageProc:
@@ -94,7 +106,23 @@ class ImageProc:
             img.load()
         self.img = img
         self.mode = img.mode
-        self.w, self.h = img.size
+
+    def convert(self):
+        img_bw = self.img.convert('L')
+        img_bw.save("img_bw.jpg")
+        return img_bw
+
+    def noise_gaussian(self):
+        if self.mode == 'L':
+            res_img = noise_gaussian(self.img)
+        else:
+            r, g, b = self.img.split()
+            r_res = noise_gaussian(r)
+            g_res = noise_gaussian(g)
+            b_res = noise_gaussian(b)
+            res_img = Image.merge('RGB', (r_res, g_res, b_res))
+        res_img.save("img_noise.jpg")
+        return res_img
 
     def contrast_brightness(self, contrast, brightness):
         if self.mode == 'L':
@@ -106,8 +134,7 @@ class ImageProc:
             b_res = contrast_brightness(b, contrast, brightness)
             res_img = Image.merge('RGB',(r_res,g_res,b_res))
         return res_img
-        
-        
+
     def derivative_filter(self):
         if self.mode == 'L':
             res_img = derivative_filter(self.img)
@@ -165,19 +192,17 @@ class ImageProc:
                 blended_data[x, y] = (r_out, g_out, b_out, a_out)
 
         return blended_img
-        
 
     def blend_images(self, img2, alpha):
         if self.img.size != img2.size:
             self.img, img2 = self.resize_images(self.img, img2)
-        if self.img.mode == 'L' and img2.mode == 'L':
+        if self.mode == 'L' and img2.mode == 'L':
             return self.blend_bw_images(self.img, img2, alpha)
         else:
             img1 = self.img.convert("RGBA")
             img2 = img2.convert("RGBA")
             return self.blend_color_images(img1, img2, alpha)
-            
-            
+
     def blur_bw_image(self, size):
         img_data = self.img.load()
 
@@ -195,8 +220,7 @@ class ImageProc:
                 blurred_data[i, j] = total // count
 
         return blurred_img
-        
-    
+
     def blur_color_image(self, size):
         img_data = self.img.load()
 
@@ -219,14 +243,12 @@ class ImageProc:
                 blurred_data[i, j] = (r_total // count, g_total // count, b_total // count)
 
         return blurred_img
-    
-            
+
     def blur_image(self, size):
-        if self.img.mode == 'L':
+        if self.mode == 'L':
             return self.blur_bw_image(size)
         else:
             return self.blur_color_image(size)
-
 
     def invert_operator(self):
         w, h = self.img.size
@@ -249,23 +271,62 @@ class ImageProc:
         return (img_out)
 
     def invert_image(self):
-        if self.img.mode == 'L':
+        if self.mode == 'L':
             return self.invert_bw_operator()
         else:
             return self.invert_operator()
 
     def drow_frame(self, x1, x2, y1, y2):
+        w,h = self.img.size
         drow = ImageDraw.Draw(self.img)
-        line_color = (255, 0, 0)
+        if self.mode == 'L':
+            line_color = (0)
+        else:
+            line_color = (255, 0, 0)
         line_width = 5
         drow.line([(x1, y1), (x1, y2), (x2, y2), (x2, y1), (x1, y1)], fill=line_color, width=line_width)
         self.img.show()
 
-img_proc = ImageProc("cow.jpg")
-blurred_img = img_proc.blur_image(5)
-invert_img = img_proc.invert_image()
-drow_frame = img_proc.drow_frame(300,1100,100,900)
-blurred_img.show()
-invert_img.show()
+
+# method checking
+img_cow = ImageProc("cow.jpg")
+img_cow.convert()
+img_cow_bw = ImageProc("img_bw.jpg")
+img_cow.noise_gaussian()#.show()
+img_cow_noise = ImageProc("img_noise.jpg")
+img_cow_bw.noise_gaussian()#.show()
+img_cow_bw_noise = ImageProc("img_noise.jpg")
+
+img_monkey = ImageProc("monkey.jpg")
+img_monkey.convert()
+img_monkey_bw = ImageProc("img_bw.jpg")
+
+img_pig = ImageProc("pig.jpeg")
+img_pig.convert()
+img_pig_bw = ImageProc("img_bw.jpg")
+
+#img_cow.contrast_brightness(2,-100).show()
+#img_cow_bw.contrast_brightness(2,-100).show()
+
+#img_cow.invert_image().show()
+#img_cow_bw.invert_image().show()
+
+#img_cow.drow_frame(5,200,5,899)
+#img_cow_bw.drow_frame(500,1290,155,899)
+
+#img_cow.blend_images(img_monkey.img,0.5).show()
+#img_cow_bw.blend_images(img_monkey_bw.img,0.5).show()
+#img_monkey.blend_images(img_cow.img,0.5).show()
+#img_monkey_bw.blend_images(img_cow_bw.img,0.5).show()
+#img_monkey_bw.blend_images(img_cow.img,0.5).show()
+#img_cow.blend_images(img_monkey_bw.img,0.5).show()
+
+#img_cow_noise.blur_image(8).show()
+#img_cow_bw_noise.blur_image(8).show()
+
+#img_cow.derivative_filter().show()
+#img_cow_bw.derivative_filter().show()
+
+
 
 
