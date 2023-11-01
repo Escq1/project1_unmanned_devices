@@ -73,7 +73,6 @@ def vertical_derivative_filter(img_in):
 #vertical_derivative_filter(img_bw).show()
 
 def derivative_filter(img_in):
-
     w, h = img_in.size
     img_h = horizontal_derivative_filter(img_in)
     img_v = vertical_derivative_filter(img_in)
@@ -135,7 +134,7 @@ class ImageProc:
             res_img = Image.merge('RGB',(r_res,g_res,b_res))
         return res_img
 
-    def derivative_filter(self):
+    def edge_detection(self):
         if self.mode == 'L':
             res_img = derivative_filter(self.img)
         else:
@@ -305,7 +304,7 @@ img_pig = ImageProc("pig.jpeg")
 img_pig.convert()
 img_pig_bw = ImageProc("img_bw.jpg")
 
-#img_cow.contrast_brightness(2,-100).show()
+#img_cow.contrast_brightness(6.2,-100.8).show()
 #img_cow_bw.contrast_brightness(2,-100).show()
 
 #img_cow.invert_image().show()
@@ -324,9 +323,5 @@ img_pig_bw = ImageProc("img_bw.jpg")
 #img_cow_noise.blur_image(8).show()
 #img_cow_bw_noise.blur_image(8).show()
 
-#img_cow.derivative_filter().show()
-#img_cow_bw.derivative_filter().show()
-
-
-
-
+#img_cow.edge_detection().show()
+#img_cow_bw.edge_detection().show()

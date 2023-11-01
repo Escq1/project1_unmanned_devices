@@ -2,7 +2,7 @@
 
 This Project contains a Python class ImageProc that provides various image processing functionalities. The class is designed to work with images in both black and white and color formats.
 
-- `__init__(self, filename)`: This is the initializer method for the `ImageProc` class. It takes a string argument `filename` which is the path to the image file. This method loads the image, stores it in the `img` instance variable, and also stores the mode and size of the image, and the separated color channels if the image is in color mode. 
+- `__init__(self, filename)`: This is the initializer method for the `ImageProc` class. It takes a string argument `filename` which is the path to the image file. This method loads the image, stores it in the `img` instance variable, and also stores the mode of the image. 
 
 ```python
 """
@@ -16,8 +16,70 @@ Parameters:
 Attributes:
 - img (Image object): The loaded image.
 - mode (str): The mode of the image ('L' for black and white, 'RGB' for color).
-- w, h (int, int): The width and height of the image.
-- r, g, b (Image object, Image object, Image object): The separated color channels of the image, if the image is in color mode.
+"""
+```
+
+- `convert(self)`: This method converts the image to black and white format and saves it to a file `"img_bw.jpg"`.
+
+```python
+"""
+convert(self)
+
+Converts an image to black and white format and saves it to a file.
+
+Parameters:
+- This function only takes an image as input.
+
+Returns:
+- convert_img (Image object): The converted image.
+- "img_bw.jpg" (file): picture file.
+"""
+
+```
+- `noise_gaussian(self)`: This method noisies the image according to the normal Gaussian distribution. The resulting image is saved to the file `"img_noise.jpg"`.
+```python
+"""
+noise_gaussian(self)
+
+Adds noise to the image using a normal Gaussian distribution.
+
+Parameters:
+- This function only takes an image as input.
+
+Returns:
+- noise_img (Image object): The noises image.
+- "img_noise.jpg" (file): picture file.
+"""
+```
+
+- `contrast_brightness(self, contrast, brightness)`: The method changes the contrast and brightness of the image.
+```python
+"""
+contrast_brightness(self, contrast, brightness)
+
+Changes the contrast and brightness of the image.
+
+Parameters:
+- contrast (float): contrast of the image.
+- brightness (float): brightness of the image.
+
+Returns:
+- img (Image object)
+"""
+```
+
+- `edge_detection(self)`: This method determines the boundaries of objects in an image. First-order image derivatives are determined using the Sobel operator. The magnitude of the total gradient is calculated as the root of the sum of the squares of the first-order derivatives of the image.
+```python
+"""
+edge_detection(self)
+
+Defines the boundaries of objects in an image.
+
+Parameters:
+- This function only takes an image as input.
+
+Returns:
+- img (Image object): Image with edge
 """
 ```
 
