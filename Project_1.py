@@ -264,8 +264,6 @@ class ImageProc:
 img_proc = ImageProc("cow.jpg")
 blurred_img = img_proc.blur_image(5)
 invert_img = img_proc.invert_image()
-drow_frame = img_proc.drow_frame(300,1100,100,900)
+drow_frame = img_proc.drow_frame(301,1100,100,900)
 blurred_img.show()
 invert_img.show()
-
-
